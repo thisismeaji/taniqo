@@ -25,9 +25,13 @@ const supportedSchemaTypes = new Set<PostSchemaType>([
 	"NewsArticle",
 ]);
 
-export function normalizePostSchemaType(schemaType?: string): PostSchemaType {
+export function normalizePostSchemaType(schemaType?: string, category?: string): PostSchemaType {
 	if (schemaType && supportedSchemaTypes.has(schemaType as PostSchemaType)) {
 		return schemaType as PostSchemaType;
+	}
+
+	if (category?.toLowerCase() === "berita") {
+		return "NewsArticle";
 	}
 
 	return "Article";

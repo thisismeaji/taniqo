@@ -5,6 +5,7 @@ interface Props {
 	title?: string;
 	description?: string;
 	category?: string;
+	categorySlug?: string;
 	date?: string;
 	datetime?: string;
 	author?: string;
@@ -16,6 +17,7 @@ const {
 	title = "Cara Memilih Media Tanam yang Tepat untuk Sayuran",
 	description = "Panduan praktis untuk memahami kebutuhan dasar tanaman, memilih media yang sesuai, dan menjaga pertumbuhan tetap sehat dari awal masa tanam.",
 	category = "Panduan",
+	categorySlug,
 	date = "1 Agustus 2026",
 	datetime = "2026-08-01",
 	author = "Ajisaka Kamandnau",
@@ -24,9 +26,26 @@ const {
 } = Astro.props;
 
 const hasPostBody = Astro.slots.has("default");
+const categoryHref = categorySlug ? `/${categorySlug}` : "/";
 ---
 
 <article class="w-full">
+	<nav aria-label="Breadcrumb" class="mx-auto mb-6 flex w-full max-w-3xl items-center text-sm text-zinc-500">
+		<ol class="flex flex-wrap items-center gap-2">
+			<li>
+				<a href="/" class="font-medium text-zinc-600 transition hover:text-leaf-900">Taniqo</a>
+			</li>
+			<li aria-hidden="true">/</li>
+			<li>
+				<a href={categoryHref} class="font-medium text-zinc-600 transition hover:text-leaf-900">{category}</a>
+			</li>
+			<li aria-hidden="true">/</li>
+			<li>
+				<span aria-current="page" class="text-zinc-700">{title}</span>
+			</li>
+		</ol>
+	</nav>
+
 	<div class="mx-auto mb-8 flex w-full max-w-3xl flex-col items-center space-y-5 text-center">
 		<div class="flex flex-wrap items-center justify-center gap-3 text-sm font-medium text-zinc-500">
 			<span class="rounded-full bg-[#E8F5E9] px-2.5 py-1 text-[11px] font-semibold text-[#1B5E20]">{category}</span>
