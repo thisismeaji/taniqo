@@ -1,4 +1,6 @@
 ---
+import { Image } from "astro:assets";
+
 interface Props {
 	title?: string;
 	excerpt?: string;
@@ -29,11 +31,14 @@ const HeadingTag = headingLevel;
 <article class="group overflow-hidden rounded-lg bg-white">
 	<a href={href} class="block focus:outline-none focus-visible:ring-2 focus-visible:ring-leaf-400 focus-visible:ring-offset-2">
 		<div class="aspect-[16/10] overflow-hidden bg-leaf-50">
-			<img
+			<Image
 				src={image}
 				alt={imageAlt}
+				width={1200}
+				height={750}
 				class="h-full w-full origin-center object-cover transition duration-300 group-hover:scale-105"
 				loading="lazy"
+				decoding="async"
 			/>
 		</div>
 		<div class="space-y-4 pt-4">

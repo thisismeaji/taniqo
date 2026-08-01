@@ -7,7 +7,7 @@ date: "31 Juli 2026"
 datetime: "2026-07-31"
 author: "Ajisaka Kamandnau"
 schemaType: "BlogPosting"
-image: "/images/thumbnail/dummy-thumbnail.png"
+image: "/images/thumbnail/tips-berkebun-santai-untuk-pekerja-perkantoran.webp"
 imageAlt: "Ilustrasi tanaman rumah untuk pekerja perkantoran"
 seo:
   title: "Tips Berkebun Santai untuk Pekerja Perkantoran | Taniqo"

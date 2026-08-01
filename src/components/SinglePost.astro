@@ -1,4 +1,6 @@
 ---
+import { Image } from "astro:assets";
+
 interface Props {
 	title?: string;
 	description?: string;
@@ -46,7 +48,16 @@ const hasPostBody = Astro.slots.has("default");
 	</div>
 
 	<figure class="mb-10 overflow-hidden rounded-lg bg-leaf-50">
-		<img src={image} alt={imageAlt} class="aspect-[16/9] w-full object-cover" />
+		<Image
+			src={image}
+			alt={imageAlt}
+			width={1600}
+			height={900}
+			class="aspect-[16/9] w-full object-cover"
+			loading="eager"
+			decoding="async"
+			fetchpriority="high"
+		/>
 	</figure>
 
 	<div class="single-post-body mx-auto w-full max-w-3xl space-y-6 text-base leading-8 text-zinc-700">

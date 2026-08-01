@@ -1,4 +1,6 @@
 ---
+import { Image } from "astro:assets";
+
 const currentPath = Astro.url.pathname.replace(/\/$/, "") || "/";
 const navigationItems = [
 	{ label: "Beranda", href: "/" },
@@ -12,7 +14,7 @@ const navigationItems = [
 <header>
 	<nav aria-label="Navigasi utama">
 		<a href="/" class="logo" aria-label="Taniqo beranda">
-			<img src="/logo.png" alt="" />
+			<Image src="/logo.png" alt="" width={32} height={32} loading="eager" decoding="async" />
 			<span>Taniqo</span>
 		</a>
 
