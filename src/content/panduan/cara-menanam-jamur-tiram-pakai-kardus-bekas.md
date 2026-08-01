@@ -6,7 +6,6 @@ category: "Panduan"
 date: "28 Juli 2026"
 datetime: "2026-07-28"
 author: "Ajisaka Kamandnau"
-schemaType: "HowTo"
 image: "/images/thumbnail/dummy-thumbnail.png"
 imageAlt: "Ilustrasi jamur tiram dengan media kardus bekas"
 seo:

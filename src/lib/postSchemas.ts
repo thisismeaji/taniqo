@@ -34,7 +34,7 @@ export function normalizePostSchemaType(schemaType?: string, category?: string):
 		return "NewsArticle";
 	}
 
-	return "Article";
+	return "BlogPosting";
 }
 
 export function buildPostSchema({

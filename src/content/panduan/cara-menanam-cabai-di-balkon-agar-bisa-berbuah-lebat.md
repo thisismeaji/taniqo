@@ -6,7 +6,6 @@ category: "Panduan"
 date: "1 Agustus 2026"
 datetime: "2026-08-01"
 author: "Ajisaka Kamandnau"
-schemaType: "HowTo"
 image: "/images/thumbnail/cara-menanam-cabai-di-balkon-agar-bisa-berbuah-lebat.webp"
 imageAlt: "Ilustrasi tanaman cabai di balkon rumah"
 seo:

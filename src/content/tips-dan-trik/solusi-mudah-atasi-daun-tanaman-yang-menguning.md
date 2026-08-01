@@ -6,7 +6,6 @@ category: "Tips dan Trik"
 date: "30 Juli 2026"
 datetime: "2026-07-30"
 author: "Ajisaka Kamandnau"
-schemaType: "Article"
 image: "/images/thumbnail/solusi-mudah-atasi-daun-tanaman-yang-menguning.webp"
 imageAlt: "Ilustrasi daun tanaman yang mulai menguning"
 seo:

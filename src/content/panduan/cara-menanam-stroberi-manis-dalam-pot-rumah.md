@@ -6,7 +6,6 @@ category: "Panduan"
 date: "26 Juli 2026"
 datetime: "2026-07-26"
 author: "Ajisaka Kamandnau"
-schemaType: "HowTo"
 image: "/images/thumbnail/dummy-thumbnail.png"
 imageAlt: "Ilustrasi tanaman stroberi dalam pot rumah"
 seo:

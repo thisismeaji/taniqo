@@ -6,7 +6,6 @@ category: "Panduan"
 date: "29 Juli 2026"
 datetime: "2026-07-29"
 author: "Ajisaka Kamandnau"
-schemaType: "HowTo"
 image: "/images/thumbnail/cara-menanam-bawang-merah-sendiri-di-rumah.webp"
 imageAlt: "Ilustrasi bawang merah yang ditanam di pot rumah"
 seo:
