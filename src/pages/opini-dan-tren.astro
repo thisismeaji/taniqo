@@ -1,0 +1,60 @@
+---
+import EmptyCategoryState from "../components/EmptyCategoryState.astro";
+import PostCard from "../components/PostCard.astro";
+import Layout from "../layouts/Layout.astro";
+import { getArticleCards } from "../lib/articles";
+
+const posts = getArticleCards("opini-dan-tren");
+const seo = {
+	title: "Opini dan Tren Urban Farming | Taniqo",
+	description: "Baca opini dan tren terbaru seputar urban farming, kebun rumahan, gaya hidup hijau, dan kebiasaan menanam di rumah.",
+	canonicalPath: "/opini-dan-tren",
+	ogTitle: "Opini dan Tren Urban Farming",
+	ogDescription: "Ikuti sudut pandang dan tren berkebun rumahan yang relevan untuk keluarga, pekerja, dan penghobi tanaman.",
+	image: "/images/thumbnail/dummy-thumbnail.png",
+	imageAlt: "Opini dan tren urban farming Taniqo",
+	robots: "index, follow",
+};
+const canonicalUrl = new URL(seo.canonicalPath, Astro.site ?? Astro.url.origin).toString();
+const collectionSchema = {
+	"@context": "https://schema.org",
+	"@type": "CollectionPage",
+	name: seo.ogTitle,
+	description: seo.description,
+	url: canonicalUrl,
+	isPartOf: {
+		"@type": "WebSite",
+		name: "Taniqo",
+	},
+	mainEntity: posts.map((post, index) => ({
+		"@type": "ListItem",
+		position: index + 1,
+		url: new URL(post.href, Astro.site ?? Astro.url.origin).toString(),
+		name: post.title,
+	})),
+};
+---
+
+<Layout
+	title={seo.title}
+	description={seo.description}
+	canonicalUrl={canonicalUrl}
+	image={seo.image}
+	imageAlt={seo.imageAlt}
+	ogTitle={seo.ogTitle}
+	ogDescription={seo.ogDescription}
+	robots={seo.robots}
+>
+	<script slot="head" type="application/ld+json" set:html={JSON.stringify(collectionSchema)} />
+	<main class="relative z-0 bg-white py-4 text-zinc-950">
+		<section class="mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8">
+			{posts.length > 0 ? (
+				<div class="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+					{posts.map((post) => <PostCard {...post} />)}
+				</div>
+			) : (
+				<EmptyCategoryState category="Opini dan Tren" />
+			)}
+		</section>
+	</main>
+</Layout>

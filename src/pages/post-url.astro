@@ -1,0 +1,89 @@
+---
+import PostCard from "../components/PostCard.astro";
+import SinglePost from "../components/SinglePost.astro";
+import Layout from "../layouts/Layout.astro";
+import { buildPostSchema } from "../lib/postSchemas";
+
+const title = "Cara Memilih Media Tanam yang Tepat untuk Sayuran";
+const description = "Panduan praktis untuk memahami kebutuhan dasar tanaman, memilih media yang sesuai, dan menjaga pertumbuhan tetap sehat dari awal masa tanam.";
+const category = "Panduan";
+const date = "1 Agustus 2026";
+const datetime = "2026-08-01";
+const author = "Ajisaka Kamandnau";
+const image = "/images/thumbnail/dummy-thumbnail.png";
+const canonicalUrl = new URL(Astro.url.pathname, Astro.site ?? Astro.url.origin).toString();
+const imageUrl = new URL(image, Astro.site ?? Astro.url.origin).toString();
+const seoTitle = `${title} | Taniqo`;
+const postSchema = buildPostSchema({
+	schemaType: "Article",
+	title,
+	description,
+	category,
+	datePublished: datetime,
+	author,
+	image: imageUrl,
+	url: canonicalUrl,
+});
+
+const relatedPosts = [
+	{
+		title: "Tips Menjaga Tanaman Tetap Segar Saat Musim Panas",
+		excerpt: "Atur jadwal penyiraman, naungan, dan kelembapan agar tanaman tidak cepat layu ketika suhu meningkat dan kebutuhan air berubah lebih cepat dari biasanya.",
+		category: "Tips dan Trik",
+		date: "30 Juli 2026",
+		datetime: "2026-07-30",
+		href: "/post-url",
+	},
+	{
+		title: "Tren Urban Farming yang Makin Diminati Keluarga Muda",
+		excerpt: "Kebun kecil di rumah kini menjadi bagian dari gaya hidup sehat, hemat, dan lebih dekat dengan pangan harian tanpa membutuhkan lahan besar.",
+		category: "Opini dan Tren",
+		date: "28 Juli 2026",
+		datetime: "2026-07-28",
+		href: "/post-url",
+	},
+	{
+		title: "Cara Merawat Bibit Baru agar Cepat Beradaptasi",
+		excerpt: "Bibit muda butuh pencahayaan, kelembapan, dan media yang stabil agar tidak mudah stres setelah dipindahkan ke pot baru.",
+		category: "Panduan",
+		date: "25 Juli 2026",
+		datetime: "2026-07-25",
+		href: "/post-url",
+	},
+];
+---
+
+<Layout
+	title={seoTitle}
+	description={description}
+	canonicalUrl={canonicalUrl}
+	image={image}
+	imageAlt={title}
+	ogTitle={title}
+	ogDescription={description}
+	type="article"
+>
+	<script slot="head" type="application/ld+json" set:html={JSON.stringify(postSchema)} />
+	<main class="relative z-0 bg-white py-12 text-zinc-950">
+		<section class="mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8">
+			<SinglePost
+				title={title}
+				description={description}
+				category={category}
+				date={date}
+				datetime={datetime}
+				author={author}
+				image={image}
+				imageAlt={title}
+			/>
+		</section>
+		<section class="mx-auto mt-16 w-full max-w-6xl px-4 sm:px-6 lg:px-8">
+			<div class="mb-8 flex items-end justify-between gap-4">
+				<h2 class="text-2xl font-semibold text-zinc-950">Related Post</h2>
+			</div>
+			<div class="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+				{relatedPosts.map((post) => <PostCard {...post} headingLevel="h3" />)}
+			</div>
+		</section>
+	</main>
+</Layout>

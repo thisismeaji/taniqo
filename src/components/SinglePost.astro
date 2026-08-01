@@ -1,0 +1,212 @@
+---
+interface Props {
+	title?: string;
+	description?: string;
+	category?: string;
+	date?: string;
+	datetime?: string;
+	author?: string;
+	image?: string;
+	imageAlt?: string;
+}
+
+const {
+	title = "Cara Memilih Media Tanam yang Tepat untuk Sayuran",
+	description = "Panduan praktis untuk memahami kebutuhan dasar tanaman, memilih media yang sesuai, dan menjaga pertumbuhan tetap sehat dari awal masa tanam.",
+	category = "Panduan",
+	date = "1 Agustus 2026",
+	datetime = "2026-08-01",
+	author = "Ajisaka Kamandnau",
+	image = "/images/thumbnail/dummy-thumbnail.png",
+	imageAlt = title,
+} = Astro.props;
+
+const hasPostBody = Astro.slots.has("default");
+---
+
+<article class="w-full">
+	<div class="mx-auto mb-8 flex w-full max-w-3xl flex-col items-center space-y-5 text-center">
+		<div class="flex flex-wrap items-center justify-center gap-3 text-sm font-medium text-zinc-500">
+			<span class="rounded-full bg-[#E8F5E9] px-2.5 py-1 text-[11px] font-semibold text-[#1B5E20]">{category}</span>
+		</div>
+
+		<h1 class="text-3xl font-bold leading-tight text-zinc-950 sm:text-4xl lg:text-5xl">
+			{title}
+		</h1>
+
+		<p class="text-base leading-8 text-zinc-600 sm:text-lg">
+			{description}
+		</p>
+
+		<div class="flex flex-wrap items-center justify-center gap-3 text-sm font-medium text-zinc-500">
+			<time datetime={datetime}>{date}</time>
+			<span aria-hidden="true">/</span>
+			<span>{author}</span>
+		</div>
+	</div>
+
+	<figure class="mb-10 overflow-hidden rounded-lg bg-leaf-50">
+		<img src={image} alt={imageAlt} class="aspect-[16/9] w-full object-cover" />
+	</figure>
+
+	<div class="single-post-body mx-auto w-full max-w-3xl space-y-6 text-base leading-8 text-zinc-700">
+		{hasPostBody ? (
+			<slot />
+		) : (
+			<>
+				<p>
+					Media tanam yang baik membantu akar mendapatkan udara, air, dan nutrisi dengan seimbang. Untuk sayuran rumahan, campuran tanah gembur, kompos matang, dan sekam bakar bisa menjadi titik awal yang stabil.
+				</p>
+
+				<h2>Mulai dari kebutuhan tanaman</h2>
+
+				<p>
+					Setiap tanaman punya kebutuhan berbeda. Sayuran daun biasanya menyukai media yang lembap tetapi tidak becek, sementara tanaman buah membutuhkan struktur yang lebih kuat agar akar bisa menopang pertumbuhan lebih lama. Kamu bisa membaca referensi lanjutan di <a href="/panduan">halaman panduan Taniqo</a>.
+				</p>
+
+				<h3>Komposisi dasar yang mudah dicoba</h3>
+
+				<ul>
+					<li>Gunakan tanah gembur sebagai struktur utama media.</li>
+					<li>Tambahkan kompos matang untuk mendukung nutrisi tanaman.</li>
+					<li>Campurkan sekam bakar agar media tidak terlalu padat.</li>
+				</ul>
+
+				<h2>Perhatikan drainase</h2>
+
+				<p>
+					Drainase yang buruk sering membuat akar membusuk. Pastikan pot memiliki lubang bawah, lalu gunakan media yang tidak terlalu padat agar air berlebih bisa keluar tanpa membawa terlalu banyak nutrisi.
+				</p>
+
+				<ol>
+					<li>Isi bagian bawah pot dengan media yang lebih ringan.</li>
+					<li>Siram perlahan sampai air keluar dari lubang drainase.</li>
+					<li>Amati apakah air menggenang terlalu lama di permukaan.</li>
+				</ol>
+
+				<blockquote>
+					Media tanam yang ideal bukan yang paling mahal, tetapi yang paling sesuai dengan jenis tanaman dan rutinitas perawatan harian.
+				</blockquote>
+
+				<h3>Contoh catatan singkat</h3>
+
+				<pre><code>media = tanah + kompos + sekam
+siraman = pagi atau sore
+evaluasi = cek kelembapan setiap hari</code></pre>
+
+				<div class="overflow-x-auto">
+					<table>
+						<thead>
+							<tr>
+								<th>Bahan</th>
+								<th>Fungsi</th>
+								<th>Catatan</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>Tanah gembur</td>
+								<td>Struktur utama</td>
+								<td>Jangan terlalu liat atau padat.</td>
+							</tr>
+							<tr>
+								<td>Kompos</td>
+								<td>Nutrisi organik</td>
+								<td>Pastikan sudah matang.</td>
+							</tr>
+							<tr>
+								<td>Sekam bakar</td>
+								<td>Aerasi</td>
+								<td>Membantu akar bernapas.</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+
+				<p>
+					Setelah media dipilih, lakukan pengamatan rutin. Jika permukaan terlalu cepat kering, tambahkan bahan organik. Jika terlalu lama basah, perbaiki komposisi dengan material yang membantu aerasi.
+				</p>
+			</>
+		)}
+	</div>
+</article>
+
+<style>
+	.single-post-body :global(h2) {
+		padding-top: 1rem;
+		font-size: 1.5rem;
+		font-weight: 600;
+		line-height: 1.35;
+		color: #09090b;
+	}
+
+	.single-post-body :global(h3) {
+		padding-top: 0.5rem;
+		font-size: 1.25rem;
+		font-weight: 600;
+		line-height: 1.35;
+		color: #09090b;
+	}
+
+	.single-post-body :global(a) {
+		font-weight: 500;
+		color: #1b5e20;
+		text-decoration: underline;
+		text-underline-offset: 4px;
+	}
+
+	.single-post-body :global(a:hover) {
+		color: #09090b;
+	}
+
+	.single-post-body :global(ul) {
+		list-style: disc;
+		padding-left: 1.25rem;
+	}
+
+	.single-post-body :global(ol) {
+		list-style: decimal;
+		padding-left: 1.25rem;
+	}
+
+	.single-post-body :global(li + li) {
+		margin-top: 0.5rem;
+	}
+
+	.single-post-body :global(blockquote) {
+		border-left: 4px solid #1b5e20;
+		background: #e8f5e9;
+		padding: 1rem 1.25rem;
+		color: #27272a;
+	}
+
+	.single-post-body :global(pre) {
+		overflow-x: auto;
+		border-radius: 0.5rem;
+		background: #09090b;
+		padding: 1rem;
+		font-size: 0.875rem;
+		line-height: 1.5rem;
+		color: #f4f4f5;
+	}
+
+	.single-post-body :global(table) {
+		width: 100%;
+		min-width: 36rem;
+		border-collapse: collapse;
+		text-align: left;
+		font-size: 0.875rem;
+	}
+
+	.single-post-body :global(th) {
+		padding: 0.75rem 1rem 0.75rem 0;
+		border-bottom: 1px solid #eeeeee;
+		font-weight: 600;
+		color: #09090b;
+	}
+
+	.single-post-body :global(td) {
+		padding: 0.75rem 1rem 0.75rem 0;
+		border-bottom: 1px solid #eeeeee;
+	}
+</style>

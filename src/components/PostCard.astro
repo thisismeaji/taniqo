@@ -1,0 +1,54 @@
+---
+interface Props {
+	title?: string;
+	excerpt?: string;
+	category?: string;
+	date?: string;
+	datetime?: string;
+	image?: string;
+	imageAlt?: string;
+	href?: string;
+	headingLevel?: "h2" | "h3";
+}
+
+const {
+	title = "Strategi Menanam Sayur Organik di Lahan Sempit",
+	excerpt = "Panduan ringkas untuk mulai berkebun produktif dengan ruang terbatas, media tanam tepat, dan perawatan harian yang mudah diikuti.",
+	category = "Panduan",
+	date = "1 Agustus 2026",
+	datetime = "2026-08-01",
+	image = "/images/thumbnail/dummy-thumbnail.png",
+	imageAlt = title,
+	href = "#",
+	headingLevel = "h2",
+} = Astro.props;
+
+const HeadingTag = headingLevel;
+---
+
+<article class="group overflow-hidden rounded-lg bg-white">
+	<a href={href} class="block focus:outline-none focus-visible:ring-2 focus-visible:ring-leaf-400 focus-visible:ring-offset-2">
+		<div class="aspect-[16/10] overflow-hidden bg-leaf-50">
+			<img
+				src={image}
+				alt={imageAlt}
+				class="h-full w-full origin-center object-cover transition duration-300 group-hover:scale-105"
+				loading="lazy"
+			/>
+		</div>
+		<div class="space-y-4 pt-4">
+			<div class="flex items-center justify-between gap-4 text-xs font-medium text-zinc-500">
+				<time datetime={datetime}>{date}</time>
+				<span class="shrink-0 rounded-full bg-[#E8F5E9] px-2.5 py-1 text-[11px] font-semibold text-[#1B5E20]">{category}</span>
+			</div>
+			<div class="space-y-2">
+				<HeadingTag class="text-xl font-semibold leading-snug text-zinc-950 transition group-hover:text-leaf-900">
+					{title}
+				</HeadingTag>
+				<p class="line-clamp-2 w-full max-w-none text-left text-sm leading-6 text-zinc-600">
+					{excerpt}
+				</p>
+			</div>
+		</div>
+	</a>
+</article>

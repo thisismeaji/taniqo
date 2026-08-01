@@ -1,11 +1,49 @@
 ---
-import Welcome from '../components/Welcome.astro';
+import PostCard from '../components/PostCard.astro';
 import Layout from '../layouts/Layout.astro';
+import { getArticleCards } from '../lib/articles';
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+const posts = getArticleCards();
+const seo = {
+	title: "Taniqo - Panduan dan Tips Berkebun Rumahan",
+	description: "Baca panduan, tips, opini, dan berita berkebun rumahan dari Taniqo untuk merawat tanaman dengan cara yang praktis dan mudah diikuti.",
+	canonicalPath: "/",
+	ogTitle: "Taniqo - Panduan dan Tips Berkebun Rumahan",
+	ogDescription: "Temukan artikel berkebun rumahan, urban farming, perawatan tanaman, dan inspirasi kebun kecil untuk kehidupan sehari-hari.",
+	image: "/images/thumbnail/dummy-thumbnail.png",
+	imageAlt: "Taniqo panduan berkebun rumahan",
+	robots: "index, follow",
+};
+const canonicalUrl = new URL(seo.canonicalPath, Astro.site ?? Astro.url.origin).toString();
+const siteSchema = {
+	"@context": "https://schema.org",
+	"@type": "WebSite",
+	name: "Taniqo",
+	url: canonicalUrl,
+	description: seo.description,
+	publisher: {
+		"@type": "Organization",
+		name: "Taniqo",
+	},
+};
 ---
 
-<Layout>
-	<Welcome />
+<Layout
+	title={seo.title}
+	description={seo.description}
+	canonicalUrl={canonicalUrl}
+	image={seo.image}
+	imageAlt={seo.imageAlt}
+	ogTitle={seo.ogTitle}
+	ogDescription={seo.ogDescription}
+	robots={seo.robots}
+>
+	<script slot="head" type="application/ld+json" set:html={JSON.stringify(siteSchema)} />
+	<main class="relative z-0 bg-white py-4 text-zinc-950">
+		<section class="mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8">
+			<div class="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+				{posts.map((post) => <PostCard {...post} />)}
+			</div>
+		</section>
+	</main>
 </Layout>

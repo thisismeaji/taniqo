@@ -1,0 +1,271 @@
+---
+const currentPath = Astro.url.pathname.replace(/\/$/, "") || "/";
+const navigationItems = [
+	{ label: "Beranda", href: "/" },
+	{ label: "Panduan", href: "/panduan" },
+	{ label: "Tips dan Trik", href: "/tips-dan-trik" },
+	{ label: "Opini dan Tren", href: "/opini-dan-tren" },
+	{ label: "Berita", href: "/berita" },
+];
+---
+
+<header>
+	<nav aria-label="Navigasi utama">
+		<a href="/" class="logo" aria-label="Taniqo beranda">
+			<img src="/logo.png" alt="" />
+			<span>Taniqo</span>
+		</a>
+
+		<div class="nav-actions">
+			<ul class="list-menu" id="main-menu" aria-label="Menu utama">
+				{navigationItems.map((item) => (
+					<li>
+						<a href={item.href} aria-current={currentPath === item.href ? "page" : undefined}>
+							{item.label}
+						</a>
+					</li>
+				))}
+			</ul>
+
+			<button class="menu-toggle" type="button" aria-label="Buka menu" aria-expanded="false" aria-controls="main-menu">
+				<span></span>
+				<span></span>
+				<span></span>
+			</button>
+		</div>
+	</nav>
+
+	<button class="mobile-overlay" type="button" aria-label="Tutup menu"></button>
+</header>
+
+<script>
+	const toggle = document.querySelector<HTMLButtonElement>(".menu-toggle");
+	const mobileMenu = document.querySelector<HTMLUListElement>(".list-menu");
+	const overlay = document.querySelector<HTMLButtonElement>(".mobile-overlay");
+	const mobileLinks = document.querySelectorAll<HTMLAnchorElement>(".list-menu a");
+	const closeDelay = 240;
+
+	const setMobileMenu = (isOpen: boolean) => {
+		mobileMenu?.classList.toggle("is-open", isOpen);
+		toggle?.setAttribute("aria-expanded", String(isOpen));
+		document.body.classList.toggle("menu-open", isOpen);
+	};
+
+	toggle?.addEventListener("click", () => {
+		setMobileMenu(!mobileMenu?.classList.contains("is-open"));
+	});
+
+	overlay?.addEventListener("click", () => setMobileMenu(false));
+
+	mobileLinks.forEach((link) => {
+		link.addEventListener("click", (event: MouseEvent) => {
+			if (
+				!mobileMenu?.classList.contains("is-open") ||
+				event.metaKey ||
+				event.ctrlKey ||
+				event.shiftKey ||
+				event.altKey ||
+				link.target === "_blank"
+			) {
+				return;
+			}
+
+			event.preventDefault();
+			setMobileMenu(false);
+
+			window.setTimeout(() => {
+				window.location.href = link.href;
+			}, closeDelay);
+		});
+	});
+
+	document.addEventListener("keydown", (event: KeyboardEvent) => {
+		if (event.key === "Escape") {
+			setMobileMenu(false);
+		}
+	});
+</script>
+
+<style>
+	header {
+		position: sticky;
+		top: 0;
+		z-index: 1000;
+		border-bottom: 1px solid #eeeeee;
+		background: #ffffff;
+	}
+
+	nav {
+		width: 100%;
+		max-width: 72rem;
+		height: 4rem;
+		margin: 0 auto;
+		padding: 0 1rem;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 1.5rem;
+	}
+
+	.logo {
+		display: flex;
+		min-width: 0;
+		align-items: center;
+		gap: 0.75rem;
+		color: #09090b;
+		text-decoration: none;
+	}
+
+	.logo img {
+		width: 2rem;
+		height: 2rem;
+		border-radius: 0.375rem;
+		object-fit: contain;
+	}
+
+	.logo span {
+		font-size: 1.125rem;
+		font-weight: 700;
+	}
+
+	.nav-actions {
+		margin-left: auto;
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+	}
+
+	.list-menu {
+		display: flex;
+		align-items: center;
+		justify-content: flex-end;
+		gap: 1rem;
+		list-style: none;
+		margin: 0;
+		padding: 0;
+	}
+
+	.list-menu a {
+		display: block;
+		color: #3f3f46;
+		font-size: 0.875rem;
+		font-weight: 500;
+		text-decoration: none;
+		transition: color 160ms ease;
+	}
+
+	.list-menu a:hover,
+	.list-menu a[aria-current="page"] {
+		color: #1b5e20;
+	}
+
+	.menu-toggle {
+		width: 2.5rem;
+		height: 2.5rem;
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		color: #3f3f46;
+		background: transparent;
+		border: 0;
+		cursor: pointer;
+		transition: color 160ms ease;
+	}
+
+	.menu-toggle:hover {
+		color: #1b5e20;
+	}
+
+	.menu-toggle {
+		display: none;
+		flex-direction: column;
+		gap: 0.3125rem;
+	}
+
+	.menu-toggle span {
+		width: 1.125rem;
+		height: 0.125rem;
+		border-radius: 999px;
+		background: currentColor;
+	}
+
+	.mobile-overlay {
+		position: fixed;
+		inset: 0;
+		z-index: 900;
+		border: 0;
+		background: rgba(0, 0, 0, 0.3);
+		backdrop-filter: blur(8px);
+		opacity: 0;
+		pointer-events: none;
+		transition: opacity 200ms ease;
+	}
+
+	header:has(.list-menu.is-open) .mobile-overlay {
+		opacity: 1;
+		pointer-events: auto;
+	}
+
+	:global(body.menu-open) {
+		overflow: hidden;
+	}
+
+	.sr-only {
+		position: absolute;
+		width: 1px;
+		height: 1px;
+		padding: 0;
+		margin: -1px;
+		overflow: hidden;
+		clip: rect(0, 0, 0, 0);
+		white-space: nowrap;
+		border: 0;
+	}
+
+	@media (min-width: 640px) {
+		nav {
+			padding: 0 1.5rem;
+		}
+	}
+
+	@media (min-width: 1024px) {
+		nav {
+			padding: 0 2rem;
+		}
+	}
+
+	@media (max-width: 1023px) {
+		.list-menu {
+			position: fixed;
+			top: 0;
+			left: 0;
+			z-index: 1000;
+			width: 80vw;
+			height: 100dvh;
+			padding: 1rem;
+			display: flex;
+			flex-direction: column;
+			align-items: stretch;
+			justify-content: flex-start;
+			gap: 1.5rem;
+			border-right: 1px solid #eeeeee;
+			background: #ffffff;
+			box-shadow: 0 25px 50px -12px rgba(27, 94, 32, 0.15);
+			transform: translateX(-100%);
+			transition: transform 240ms ease;
+		}
+
+		.list-menu.is-open {
+			transform: translateX(0);
+		}
+
+		.list-menu a {
+			width: 100%;
+			color: #18181b;
+		}
+
+		.menu-toggle {
+			display: inline-flex;
+		}
+	}
+</style>

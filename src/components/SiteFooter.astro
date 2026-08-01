@@ -1,0 +1,45 @@
+---
+import { siFacebook, siInstagram, siTiktok, siX } from "simple-icons";
+
+const pageLinks = [
+	{ label: "Tentang", href: "/tentang" },
+	{ label: "Kontak", href: "/kontak" },
+	{ label: "Kebijakan Privasi", href: "/kebijakan-privasi" },
+	{ label: "Syarat dan Ketentuan", href: "/syarat-dan-ketentuan" },
+];
+
+const socialLinks = [
+	{ label: "Instagram", href: "https://www.instagram.com", icon: siInstagram },
+	{ label: "TikTok", href: "https://www.tiktok.com", icon: siTiktok },
+	{ label: "Facebook", href: "https://www.facebook.com", icon: siFacebook },
+	{ label: "X / Twitter", href: "https://www.x.com", icon: siX },
+];
+---
+
+<footer class="border-t border-[#eeeeee] bg-white">
+	<div class="mx-auto flex w-full max-w-6xl flex-col items-center gap-6 px-4 py-8 text-center sm:px-6 lg:flex-row lg:items-center lg:justify-between lg:px-8 lg:text-left">
+		<p class="text-sm font-medium text-zinc-600">
+			&copy; 2026 Taniqo. All rights reserved.
+		</p>
+
+		<nav class="flex flex-wrap justify-center gap-x-5 gap-y-2 lg:justify-start" aria-label="Link footer">
+			{pageLinks.map((link) => (
+				<a href={link.href} class="text-sm font-medium text-zinc-600 transition hover:text-leaf-900">
+					{link.label}
+				</a>
+			))}
+		</nav>
+
+		<div class="flex items-center justify-center gap-3 lg:justify-start">
+			{socialLinks.map((link) => {
+				return (
+					<a href={link.href} class="text-zinc-600 transition hover:text-leaf-900" aria-label={link.label} target="_blank" rel="noreferrer">
+						<svg viewBox="0 0 24 24" class="h-4 w-4" fill="currentColor" aria-hidden="true">
+							<path d={link.icon.path}></path>
+						</svg>
+					</a>
+				);
+			})}
+		</div>
+	</div>
+</footer>
