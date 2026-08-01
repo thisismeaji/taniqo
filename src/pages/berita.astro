@@ -29,15 +29,18 @@ const collectionSchema = {
 	},
 	mainEntity: {
 		"@type": "ItemList",
+		name: seo.ogTitle,
+		numberOfItems: posts.length,
 		itemListElement: posts.map((post, index) => ({
 			"@type": "ListItem",
 			position: index + 1,
-			url: new URL(post.href, Astro.site ?? Astro.url.origin).toString(),
 			name: post.title,
+			item: new URL(post.href, Astro.site ?? Astro.url.origin).toString(),
 		})),
 	},
 	breadcrumb: {
 		"@type": "BreadcrumbList",
+		name: "Breadcrumb untuk halaman berita",
 		itemListElement: [
 			{
 				"@type": "ListItem",

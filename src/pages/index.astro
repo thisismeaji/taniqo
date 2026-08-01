@@ -15,16 +15,61 @@ const seo = {
 	robots: "index, follow",
 };
 const canonicalUrl = new URL(seo.canonicalPath, Astro.site ?? Astro.url.origin).toString();
-const siteSchema = {
+const homepageSchema = {
 	"@context": "https://schema.org",
-	"@type": "WebSite",
-	name: "Taniqo",
-	url: canonicalUrl,
-	description: seo.description,
-	publisher: {
-		"@type": "Organization",
-		name: "Taniqo",
-	},
+	"@graph": [
+		{
+			"@type": "Organization",
+			"@id": `${canonicalUrl}#organization`,
+			name: "Taniqo",
+			url: canonicalUrl,
+			logo: {
+				"@type": "ImageObject",
+				url: new URL("/favicon.ico", Astro.site ?? Astro.url.origin).toString(),
+				width: 48,
+				height: 48,
+			},
+		},
+		{
+			"@type": "WebSite",
+			"@id": `${canonicalUrl}#website`,
+			name: "Taniqo",
+			url: canonicalUrl,
+			description: seo.description,
+			publisher: {
+				"@id": `${canonicalUrl}#organization`,
+			},
+			potentialAction: {
+				"@type": "SearchAction",
+				target: `${canonicalUrl}search?q={search_term_string}`,
+				"query-input": "required name=search_term_string",
+			},
+		},
+		{
+			"@type": "WebPage",
+			"@id": `${canonicalUrl}#webpage`,
+			url: canonicalUrl,
+			name: seo.title,
+			description: seo.description,
+			isPartOf: {
+				"@id": `${canonicalUrl}#website`,
+			},
+			about: {
+				"@id": `${canonicalUrl}#organization`,
+			},
+			mainEntity: {
+				"@type": "ItemList",
+				name: "Artikel terbaru Taniqo",
+				numberOfItems: Math.min(posts.length, 6),
+				itemListElement: posts.slice(0, 6).map((post, index) => ({
+					"@type": "ListItem",
+					position: index + 1,
+					name: post.title,
+					item: new URL(post.href, Astro.site ?? Astro.url.origin).toString(),
+				})),
+			},
+		},
+	],
 };
 ---
 
@@ -38,7 +83,7 @@ const siteSchema = {
 	ogDescription={seo.ogDescription}
 	robots={seo.robots}
 >
-	<script slot="head" type="application/ld+json" set:html={JSON.stringify(siteSchema)} />
+	<script slot="head" type="application/ld+json" set:html={JSON.stringify(homepageSchema)} />
 	<main class="relative z-0 bg-white py-8 text-zinc-950">
 		<section class="mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8">
 			<div class="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
