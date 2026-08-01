@@ -35,7 +35,7 @@ const collectionSchema = {
 			"@type": "ListItem",
 			position: index + 1,
 			name: post.title,
-			item: new URL(post.href, Astro.site ?? Astro.url.origin).toString(),
+			url: new URL(post.href, Astro.site ?? Astro.url.origin).toString(),
 		})),
 	},
 	breadcrumb: {
