@@ -45,31 +45,6 @@ const homepageSchemas = [
 			"query-input": "required name=search_term_string",
 		},
 	},
-	{
-		"@context": "https://schema.org",
-		"@type": "WebPage",
-		"@id": `${canonicalUrl}#webpage`,
-		url: canonicalUrl,
-		name: seo.title,
-		description: seo.description,
-		isPartOf: {
-			"@id": `${canonicalUrl}#website`,
-		},
-		about: {
-			"@id": `${canonicalUrl}#organization`,
-		},
-		mainEntity: {
-			"@type": "ItemList",
-			name: "Artikel terbaru Taniqo",
-			numberOfItems: Math.min(posts.length, 6),
-			itemListElement: posts.slice(0, 6).map((post, index) => ({
-				"@type": "ListItem",
-				position: index + 1,
-				name: post.title,
-					url: new URL(post.href, Astro.site ?? Astro.url.origin).toString(),
-			})),
-		},
-	},
 ];
 ---
 
