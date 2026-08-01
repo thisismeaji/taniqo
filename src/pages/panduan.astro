@@ -25,13 +25,34 @@ const collectionSchema = {
 	isPartOf: {
 		"@type": "WebSite",
 		name: "Taniqo",
+		url: new URL("/", Astro.site ?? Astro.url.origin).toString(),
 	},
-	mainEntity: posts.map((post, index) => ({
-		"@type": "ListItem",
-		position: index + 1,
-		url: new URL(post.href, Astro.site ?? Astro.url.origin).toString(),
-		name: post.title,
-	})),
+	mainEntity: {
+		"@type": "ItemList",
+		itemListElement: posts.map((post, index) => ({
+			"@type": "ListItem",
+			position: index + 1,
+			url: new URL(post.href, Astro.site ?? Astro.url.origin).toString(),
+			name: post.title,
+		})),
+	},
+	breadcrumb: {
+		"@type": "BreadcrumbList",
+		itemListElement: [
+			{
+				"@type": "ListItem",
+				position: 1,
+				name: "Taniqo",
+				item: new URL("/", Astro.site ?? Astro.url.origin).toString(),
+			},
+			{
+				"@type": "ListItem",
+				position: 2,
+				name: "Panduan",
+				item: canonicalUrl,
+			},
+		],
+	},
 };
 ---
 
