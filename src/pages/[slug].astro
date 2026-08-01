@@ -29,6 +29,7 @@ const postSchema = buildPostSchema({
 	description: article.description,
 	category: article.category,
 	datePublished: article.datetime,
+	dateModified: article.dateModified,
 	author: article.author,
 	authorUrl: new URL("/", Astro.site ?? Astro.url.origin).toString(),
 	image: imageUrl,

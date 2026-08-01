@@ -8,6 +8,7 @@ interface MarkdownArticleModule extends MarkdownInstance<Record<string, any>> {
 		category: string;
 		date: string;
 		datetime: string;
+		dateModified?: string;
 		author?: string;
 		schemaType?: string;
 		image?: string;
@@ -42,6 +43,7 @@ export interface ArticleData extends ArticleCardData {
 	description: string;
 	author: string;
 	schemaType?: string;
+	dateModified?: string;
 	imageAlt: string;
 	seo: MarkdownArticleModule["frontmatter"]["seo"];
 	Content: MarkdownArticleModule["Content"];
@@ -83,6 +85,7 @@ export function getArticles(categorySlug?: string): ArticleData[] {
 				date: article.frontmatter.date,
 				datetime: article.frontmatter.datetime,
 				author: article.frontmatter.author ?? "Ajisaka Kamandnau",
+				dateModified: article.frontmatter.dateModified,
 				schemaType: article.frontmatter.schemaType,
 				image: article.frontmatter.image,
 				imageAlt: article.frontmatter.imageAlt ?? article.frontmatter.title,

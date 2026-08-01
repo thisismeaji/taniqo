@@ -11,6 +11,7 @@ interface BuildPostSchemaParams {
 	description: string;
 	category: string;
 	datePublished: string;
+	dateModified?: string;
 	author: string;
 	authorUrl?: string;
 	image: string;
@@ -44,6 +45,7 @@ export function buildPostSchema({
 	description,
 	category,
 	datePublished,
+	dateModified,
 	author,
 	authorUrl = "https://www.instagram.com",
 	image,
@@ -73,7 +75,7 @@ export function buildPostSchema({
 		description,
 		image: [image],
 		datePublished: normalizeDate(datePublished),
-		dateModified: normalizeDate(datePublished),
+		dateModified: normalizeDate(dateModified ?? datePublished),
 		articleSection: category,
 		author: {
 			"@type": "Person",
