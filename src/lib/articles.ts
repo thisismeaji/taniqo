@@ -1,4 +1,6 @@
-interface MarkdownArticleModule {
+import type { MarkdownInstance } from "astro";
+
+interface MarkdownArticleModule extends MarkdownInstance<Record<string, any>> {
 	frontmatter: {
 		slug: string;
 		title: string;
@@ -22,7 +24,6 @@ interface MarkdownArticleModule {
 			robots: string;
 		};
 	};
-	Content: unknown;
 }
 
 export interface ArticleCardData {
@@ -43,7 +44,7 @@ export interface ArticleData extends ArticleCardData {
 	schemaType?: string;
 	imageAlt: string;
 	seo: MarkdownArticleModule["frontmatter"]["seo"];
-	Content: unknown;
+	Content: MarkdownArticleModule["Content"];
 }
 
 const articleModules = import.meta.glob<MarkdownArticleModule>("../content/**/*.md", { eager: true });

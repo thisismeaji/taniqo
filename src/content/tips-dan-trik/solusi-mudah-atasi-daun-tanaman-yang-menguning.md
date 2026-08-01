@@ -7,7 +7,7 @@ date: "30 Juli 2026"
 datetime: "2026-07-30"
 author: "Ajisaka Kamandnau"
 schemaType: "Article"
-image: "/images/thumbnail/dummy-thumbnail.png"
+image: "/images/thumbnail/solusi-mudah-atasi-daun-tanaman-yang-menguning.webp"
 imageAlt: "Ilustrasi daun tanaman yang mulai menguning"
 seo:
   title: "Solusi Mudah Atasi Daun Tanaman yang Menguning | Taniqo"
