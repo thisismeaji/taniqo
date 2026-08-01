@@ -12,6 +12,7 @@ interface BuildPostSchemaParams {
 	category: string;
 	datePublished: string;
 	author: string;
+	authorUrl?: string;
 	image: string;
 	url: string;
 	siteName?: string;
@@ -44,11 +45,23 @@ export function buildPostSchema({
 	category,
 	datePublished,
 	author,
+	authorUrl = "https://www.instagram.com",
 	image,
 	url,
 	siteName = "Taniqo",
 }: BuildPostSchemaParams) {
 	const type = normalizePostSchemaType(schemaType);
+	const normalizeDate = (value: string) => {
+		const trimmed = value?.trim();
+		if (!trimmed) return new Date().toISOString();
+
+		const parsed = new Date(trimmed);
+		if (!Number.isNaN(parsed.getTime())) {
+			return parsed.toISOString();
+		}
+
+		return new Date().toISOString();
+	};
 	const baseSchema = {
 		"@context": "https://schema.org",
 		"@type": type,
@@ -59,12 +72,13 @@ export function buildPostSchema({
 		headline: title,
 		description,
 		image: [image],
-		datePublished,
-		dateModified: datePublished,
+		datePublished: normalizeDate(datePublished),
+		dateModified: normalizeDate(datePublished),
 		articleSection: category,
 		author: {
 			"@type": "Person",
 			name: author,
+			url: authorUrl,
 		},
 		publisher: {
 			"@type": "Organization",

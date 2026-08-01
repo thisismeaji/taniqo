@@ -30,6 +30,7 @@ const postSchema = buildPostSchema({
 	category: article.category,
 	datePublished: article.datetime,
 	author: article.author,
+	authorUrl: new URL("/", Astro.site ?? Astro.url.origin).toString(),
 	image: imageUrl,
 	url: canonicalUrl,
 });
